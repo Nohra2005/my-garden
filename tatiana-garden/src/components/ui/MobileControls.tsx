@@ -1,6 +1,6 @@
 'use client';
 // src/components/ui/MobileControls.tsx
-import { useEffect, useRef, useState } from 'react';
+import { useRef } from 'react';
 import type { SectionId } from '@/types/corridor';
 
 interface Props {
@@ -24,69 +24,57 @@ function DPadButton({ label, keyName }: { label: string; keyName: string }) {
       onPointerDown={start} onPointerUp={end} onPointerLeave={end} onPointerCancel={end}
       style={{
         width: 56, height: 56, borderRadius: 14,
-        background: 'rgba(245,242,234,0.90)',
+        background: 'rgba(245,242,234,0.92)',
         border: '1.5px solid rgba(80,120,60,0.35)',
-        color: '#2d4a22', fontSize: 20, fontWeight: 700,
+        color: '#2d4a22', fontSize: 11, fontWeight: 700,
+        fontFamily: 'Georgia, serif', letterSpacing: '0.06em',
         display: 'flex', alignItems: 'center', justifyContent: 'center',
-        cursor: 'pointer', userSelect: 'none', touchAction: 'none',
-        boxShadow: '0 2px 10px rgba(0,0,0,0.15)',
-        WebkitTapHighlightColor: 'transparent',
+        cursor: 'pointer', userSelect: 'none' as const, touchAction: 'none' as const,
+        boxShadow: '0 2px 8px rgba(0,0,0,0.10)',
+        WebkitUserSelect: 'none' as const,
       }}
-    >{label}</button>
+    >
+      {label}
+    </button>
   );
 }
 
 export function MobileControls({ nearestSectionId, onOpen }: Props) {
-  const [isMobile, setIsMobile] = useState(false);
-
-  useEffect(() => {
-    const check = () => setIsMobile(window.innerWidth < 768 || 'ontouchstart' in window);
-    check();
-    window.addEventListener('resize', check);
-    return () => window.removeEventListener('resize', check);
-  }, []);
-
-  if (!isMobile) return null;
-
   return (
-    <div style={{ position: 'fixed', bottom: 0, left: 0, right: 0, zIndex: 40,
-      pointerEvents: 'none', paddingBottom: 'env(safe-area-inset-bottom, 12px)' }}>
-
-      {/* D-pad — bottom left */}
-      <div style={{ position: 'absolute', bottom: 20, left: 20, pointerEvents: 'auto' }}>
-        {/* Up */}
+    <div className="md:hidden" style={{
+      position: 'fixed', bottom: 0, left: 0, right: 0,
+      zIndex: 40, pointerEvents: 'none',
+    }}>
+      {/* D-pad */}
+      <div style={{ position: 'absolute', bottom: 28, left: 24, pointerEvents: 'auto' }}>
         <div style={{ display: 'flex', justifyContent: 'center', marginBottom: 4 }}>
-          <DPadButton label="↑" keyName="ArrowUp"/>
+          <DPadButton label="FWD" keyName="ArrowUp"/>
         </div>
-        {/* Left + Right */}
         <div style={{ display: 'flex', gap: 4, marginBottom: 4 }}>
-          <DPadButton label="◀" keyName="ArrowLeft"/>
+          <DPadButton label="L" keyName="ArrowLeft"/>
           <div style={{ width: 56 }}/>
-          <DPadButton label="▶" keyName="ArrowRight"/>
+          <DPadButton label="R" keyName="ArrowRight"/>
         </div>
-        {/* Down */}
         <div style={{ display: 'flex', justifyContent: 'center' }}>
-          <DPadButton label="↓" keyName="ArrowDown"/>
+          <DPadButton label="BCK" keyName="ArrowDown"/>
         </div>
       </div>
 
-      {/* Open button — bottom right */}
+      {/* Open button */}
       {nearestSectionId && (
-        <div style={{ position: 'absolute', bottom: 52, right: 20, pointerEvents: 'auto' }}>
-          <button
-            onPointerDown={onOpen}
+        <div style={{ position: 'absolute', bottom: 52, right: 24, pointerEvents: 'auto' }}>
+          <button onPointerDown={onOpen}
             style={{
-              height: 56, paddingInline: 24, borderRadius: 16,
-              background: 'rgba(122,154,96,0.95)',
+              height: 52, paddingInline: 22, borderRadius: 14,
+              background: 'rgba(122,154,96,0.92)',
               border: '1.5px solid rgba(80,120,60,0.5)',
-              color: 'white', fontSize: 14, fontWeight: 700,
-              letterSpacing: '0.06em', textTransform: 'uppercase',
+              color: 'white', fontSize: 13, fontWeight: 700,
+              letterSpacing: '0.08em', textTransform: 'uppercase' as const,
               fontFamily: 'Georgia, serif',
-              cursor: 'pointer', userSelect: 'none', touchAction: 'none',
-              boxShadow: '0 3px 14px rgba(80,120,60,0.4)',
-              WebkitTapHighlightColor: 'transparent',
-            }}
-          >
+              display: 'flex', alignItems: 'center',
+              cursor: 'pointer', userSelect: 'none' as const, touchAction: 'none' as const,
+              boxShadow: '0 2px 12px rgba(80,120,60,0.35)',
+            }}>
             Open
           </button>
         </div>

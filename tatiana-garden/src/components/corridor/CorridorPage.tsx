@@ -92,20 +92,22 @@ export function CorridorPage({ projects, skills, about, experiences, corridorPho
       {/* Name + title — fixed top */}
       <div style={{ position: 'fixed', top: 0, left: 0, right: 0, zIndex: 20,
         display: 'flex', alignItems: 'center', justifyContent: 'space-between',
-        padding: '20px 28px', pointerEvents: 'none',
+        padding: '14px 20px', pointerEvents: 'none',
         background: 'linear-gradient(to bottom, rgba(232,228,212,0.9) 0%, transparent 100%)' }}>
         <div>
           <p style={{ fontSize: 9, letterSpacing: '0.2em', textTransform: 'uppercase',
-            color: 'rgba(60,90,40,0.65)', margin: '0 0 2px', fontFamily: 'Georgia, serif' }}>
+            color: 'rgba(60,90,40,0.65)', margin: '0 0 1px', fontFamily: 'Georgia, serif' }}>
             Portfolio
           </p>
-          <p style={{ fontFamily: 'Georgia, serif', fontWeight: 700, fontSize: 18,
-            color: '#2d4a22', margin: 0, letterSpacing: '-0.01em' }}>
+          <p style={{ fontFamily: 'Georgia, serif', fontWeight: 700, fontSize: 16,
+            color: '#2d4a22', margin: 0 }}>
             {about.name ?? 'Tatiana Nohra'}
           </p>
         </div>
-        <p style={{ fontSize: 11, color: 'rgba(60,90,40,0.55)', margin: 0,
-          letterSpacing: '0.06em', fontFamily: 'Georgia, serif' }}>
+        {/* Tagline — hidden on mobile */}
+        <p className="hidden sm:block" style={{ fontSize: 10, color: 'rgba(60,90,40,0.55)',
+          margin: 0, letterSpacing: '0.05em', fontFamily: 'Georgia, serif',
+          maxWidth: 320, textAlign: 'right' }}>
           {about.tagline ?? "CS & Engineering · AI Specialist · AUB"}
         </p>
       </div>
