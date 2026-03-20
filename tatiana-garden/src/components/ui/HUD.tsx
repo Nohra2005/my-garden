@@ -14,8 +14,13 @@ export function HUD({ activeSectionId, cameraProgress }: Props) {
 
   return (
     <>
+      <style>{`
+        @media (max-width: 640px) {
+          .hud-top { top: 56px !important; padding-top: 8px !important; }
+        }
+      `}</style>
       {/* Top center — active section name */}
-      <div style={{ position: 'fixed', top: 0, left: 0, right: 0, zIndex: 30,
+      <div className="hud-top" style={{ position: 'fixed', top: 0, left: 0, right: 0, zIndex: 30,
         display: 'flex', justifyContent: 'center', padding: '24px 0', pointerEvents: 'none' }}>
         <AnimatePresence mode="wait">
           {activeSection ? (
