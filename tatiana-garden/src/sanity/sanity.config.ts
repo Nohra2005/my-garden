@@ -51,6 +51,7 @@ export default defineConfig({
               .child(
                 S.documentList()
                   .title('Work Experience')
+                  .apiVersion('2024-01-01')
                   .filter('_type == "experience" && type == "work"')
                   .defaultOrdering([{ field: 'startDate', direction: 'desc' }])
               ),
@@ -61,6 +62,7 @@ export default defineConfig({
               .child(
                 S.documentList()
                   .title('Leadership & Activities')
+                  .apiVersion('2024-01-01')
                   .filter('_type == "experience" && type == "leadership"')
                   .defaultOrdering([{ field: 'startDate', direction: 'desc' }])
               ),
@@ -71,6 +73,7 @@ export default defineConfig({
               .child(
                 S.documentList()
                   .title('Education')
+                  .apiVersion('2024-01-01')
                   .filter('_type == "experience" && type == "education"')
                   .defaultOrdering([{ field: 'startDate', direction: 'desc' }])
               ),

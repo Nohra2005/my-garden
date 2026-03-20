@@ -36,8 +36,8 @@ export function PanelBase({ section, isOpen, onClose, children }: PanelBaseProps
             style={{
               position: 'fixed',
               top: '50%', left: '50%',
-              width: 'min(580px, 92vw)',
-              maxHeight: '80vh',
+              width: 'min(580px, 96vw)',
+              maxHeight: '90vh',
               zIndex: 50,
               display: 'flex',
               flexDirection: 'column',
@@ -56,7 +56,7 @@ export function PanelBase({ section, isOpen, onClose, children }: PanelBaseProps
             {/* Header */}
             <div style={{
               display: 'flex', alignItems: 'center', justifyContent: 'space-between',
-              padding: '20px 24px 14px',
+              padding: '16px 18px 12px',
               borderBottom: '1px solid rgba(100,140,80,0.18)',
               flexShrink: 0,
             }}>
@@ -99,7 +99,7 @@ export function PanelBase({ section, isOpen, onClose, children }: PanelBaseProps
 
             {/* Scrollable content */}
             <div style={{
-              flex: 1, overflowY: 'auto', padding: '20px 24px 32px',
+              flex: 1, overflowY: 'auto', padding: '16px 18px 28px',
               scrollbarWidth: 'thin',
               scrollbarColor: 'rgba(100,140,80,0.3) transparent',
             }}>

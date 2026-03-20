@@ -26,7 +26,7 @@ export function HUD({ activeSectionId, cameraProgress }: Props) {
               <p style={{ fontSize: 9, letterSpacing: '0.18em', textTransform: 'uppercase',
                 color: activeSection.color, fontWeight: 700, margin: '0 0 3px',
                 fontFamily: 'Georgia, serif' }}>
-                press enter to open
+                tap to open
               </p>
               <p style={{ fontSize: 18, fontWeight: 700, color: '#2d4a22', margin: 0,
                 fontFamily: 'Georgia, serif', textShadow: `0 0 20px ${activeSection.color}60` }}>
@@ -38,15 +38,15 @@ export function HUD({ activeSectionId, cameraProgress }: Props) {
               initial={{ opacity: 0 }} animate={{ opacity: 0.5 }} exit={{ opacity: 0 }}>
               <p style={{ fontSize: 10, color: 'rgba(60,90,40,0.6)', margin: 0,
                 letterSpacing: '0.12em', textTransform: 'uppercase', fontFamily: 'Georgia, serif' }}>
-                ↑ ↓ move · ← → turn · enter to open
+                swipe to move · tap door to open
               </p>
             </motion.div>
           )}
         </AnimatePresence>
       </div>
 
-      {/* Right side — progress dots */}
-      <div style={{ position: 'fixed', right: 24, top: '50%', transform: 'translateY(-50%)',
+      {/* Right side — progress dots (hidden on mobile) */}
+      <div className='hidden sm:flex' style={{ position: 'fixed', right: 24, top: '50%', transform: 'translateY(-50%)',
         zIndex: 30, display: 'flex', flexDirection: 'column', gap: 10, pointerEvents: 'none' }}>
         {CORRIDOR_SECTIONS.map(s => (
           <motion.div key={s.id}
@@ -73,8 +73,8 @@ export function HUD({ activeSectionId, cameraProgress }: Props) {
         ))}
       </div>
 
-      {/* Bottom left — floor progress bar */}
-      <div style={{ position: 'fixed', bottom: 28, left: 28, zIndex: 30, pointerEvents: 'none' }}>
+      {/* Bottom left — floor progress bar (hidden on mobile) */}
+      <div className='hidden sm:block' style={{ position: 'fixed', bottom: 28, left: 28, zIndex: 30, pointerEvents: 'none' }}>
         <p style={{ fontSize: 8, letterSpacing: '0.14em', textTransform: 'uppercase',
           color: 'rgba(60,90,40,0.45)', margin: '0 0 6px', fontFamily: 'Georgia, serif' }}>
           Progress

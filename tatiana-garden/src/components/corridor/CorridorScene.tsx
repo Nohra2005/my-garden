@@ -80,6 +80,8 @@ const FRAME_POSITIONS: { z: number; side: 'left' | 'right' }[] = [
 // ─── Input ────────────────────────────────────────────────────────────────────
 function useInput() {
   const keys = useRef({ fwd:false, back:false, left:false, right:false, enter:false });
+  const touchX = useRef<number | null>(null);
+
   useEffect(() => {
     const dn = (e: KeyboardEvent) => {
       if (e.key==='ArrowUp'    || e.key==='w') keys.current.fwd   = true;
@@ -95,9 +97,37 @@ function useInput() {
       if (e.key==='ArrowRight' || e.key==='d') keys.current.right = false;
       if (e.key==='Enter')                     keys.current.enter = false;
     };
-    window.addEventListener('keydown', dn);
-    window.addEventListener('keyup',   up);
-    return () => { window.removeEventListener('keydown',dn); window.removeEventListener('keyup',up); };
+    // Touch swipe on the canvas → turn left/right
+    const tstart = (e: TouchEvent) => {
+      touchX.current = e.touches[0].clientX;
+    };
+    const tmove = (e: TouchEvent) => {
+      if (touchX.current === null) return;
+      const dx = e.touches[0].clientX - touchX.current;
+      if (Math.abs(dx) > 12) {
+        keys.current.left  = dx < 0;
+        keys.current.right = dx > 0;
+      } else {
+        keys.current.left = keys.current.right = false;
+      }
+    };
+    const tend = () => {
+      touchX.current = null;
+      keys.current.left = keys.current.right = false;
+    };
+
+    window.addEventListener('keydown',   dn);
+    window.addEventListener('keyup',     up);
+    window.addEventListener('touchstart', tstart, { passive: true });
+    window.addEventListener('touchmove',  tmove,  { passive: true });
+    window.addEventListener('touchend',   tend);
+    return () => {
+      window.removeEventListener('keydown',   dn);
+      window.removeEventListener('keyup',     up);
+      window.removeEventListener('touchstart', tstart);
+      window.removeEventListener('touchmove',  tmove);
+      window.removeEventListener('touchend',   tend);
+    };
   }, []);
   return keys;
 }
@@ -743,12 +773,12 @@ export function CorridorScene({
 }) {
   return (
     <Canvas
-      shadows
+      shadows={{ type: 2 }}
       gl={{ antialias:true, alpha:false,
         toneMapping: THREE.ACESFilmicToneMapping,
         toneMappingExposure: 1.15 }}
       camera={{ fov:70, near:0.1, far:75 }}
-      style={{ background:'#e8e4d4' }}
+      style={{ background:'#e8e4d4', touchAction: 'none' }}
     >
       <SceneInner
         onCameraZChange={onCameraZChange}
