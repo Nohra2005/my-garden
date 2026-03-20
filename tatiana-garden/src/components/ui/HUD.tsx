@@ -46,7 +46,7 @@ export function HUD({ activeSectionId, cameraProgress }: Props) {
       </div>
 
       {/* Right side — progress dots (hidden on mobile) */}
-      <div className='hidden sm:flex' style={{ position: 'fixed', right: 24, top: '50%', transform: 'translateY(-50%)',
+      <div style={{ position: 'fixed', right: 24, top: '50%', transform: 'translateY(-50%)',
         zIndex: 30, display: 'flex', flexDirection: 'column', gap: 10, pointerEvents: 'none' }}>
         {CORRIDOR_SECTIONS.map(s => (
           <motion.div key={s.id}
@@ -74,7 +74,7 @@ export function HUD({ activeSectionId, cameraProgress }: Props) {
       </div>
 
       {/* Bottom left — floor progress bar (hidden on mobile) */}
-      <div className='hidden sm:block' style={{ position: 'fixed', bottom: 28, left: 28, zIndex: 30, pointerEvents: 'none' }}>
+      <div style={{ position: 'fixed', bottom: 28, left: 28, zIndex: 30, pointerEvents: 'none' }}>
         <p style={{ fontSize: 8, letterSpacing: '0.14em', textTransform: 'uppercase',
           color: 'rgba(60,90,40,0.45)', margin: '0 0 6px', fontFamily: 'Georgia, serif' }}>
           Progress

@@ -3,6 +3,7 @@
 import dynamic from 'next/dynamic';
 import { useState, useCallback } from 'react';
 import { HUD } from '@/components/ui/HUD';
+import { MobileControls } from '@/components/ui/MobileControls';
 import { AboutPanel }      from '@/components/panels/AboutPanel';
 import { ProjectsPanel }   from '@/components/panels/ProjectsPanel';
 import { SkillsPanel }     from '@/components/panels/SkillsPanel';
@@ -109,30 +110,32 @@ export function CorridorPage({ projects, skills, about, experiences, corridorPho
         </p>
       </div>
 
-      {/* Language toggle */}
-      <div style={{ position: 'fixed', top: 16, right: 16, zIndex: 50,
-        pointerEvents: 'auto' }}>
-      </div>
-
       {/* HUD overlays */}
       <HUD
         activeSectionId={nearestSection?.id ?? null}
         cameraProgress={Math.max(0, Math.min(1, cameraProgress))}
       />
 
-      {/* Keyboard hint — bottom center */}
+      {/* Keyboard hint — desktop only */}
       <div style={{ position: 'fixed', bottom: 28, left: '50%', transform: 'translateX(-50%)',
-        zIndex: 20, textAlign: 'center', pointerEvents: 'none' }}>
+        zIndex: 20, textAlign: 'center', pointerEvents: 'none' }}
+        className="hidden md:block">
         <div style={{ display: 'flex', alignItems: 'center', gap: 14,
           color: 'rgba(60,90,40,0.4)', fontSize: 11, letterSpacing: '0.1em',
           textTransform: 'uppercase', fontFamily: 'Georgia, serif' }}>
           <span>↑↓ Move</span>
-          <span style={{ color: 'rgba(255,255,255,0.1)' }}>·</span>
+          <span style={{ color: 'rgba(60,90,40,0.15)' }}>·</span>
           <span>←→ Turn</span>
-          <span style={{ color: 'rgba(255,255,255,0.1)' }}>·</span>
+          <span style={{ color: 'rgba(60,90,40,0.15)' }}>·</span>
           <span>Enter · Click to open</span>
         </div>
       </div>
+
+      {/* Mobile touch controls — visible on mobile only */}
+      <MobileControls
+        nearestSectionId={nearestSection?.id ?? null}
+        onOpen={() => nearestSection && handleSectionOpen(nearestSection.id)}
+      />
 
       {/* Content panels — HTML overlays */}
       <AboutPanel
